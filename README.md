@@ -115,4 +115,4 @@ var ConfigDefault = Config{
 
 ## More Example Usage
 
-Please go to [example/main.go](./example/main.go) and [example/more_usage.go](./example/more_usage.go)
+Please go to [example/main.go](./example/main.go)
