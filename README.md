@@ -19,7 +19,7 @@ zlogwrap is a logging library, which wrapping all common use in My "Go App".
 ## Installation
 
 ```bash
-  go get github.com/buildingwatsize/zlogwrap
+  GOINSECURE="ipanda.it.baac.or.th" go get -u ipanda.it.baac.or.th/golib/zlogwrap
 ```
 
 ## Signatures
@@ -34,7 +34,7 @@ Import the package
 
 ```go
 import (
-  "github.com/buildingwatsize/zlogwrap"
+  "ipanda.it.baac.or.th/golib/zlogwrap"
 )
 ```
 

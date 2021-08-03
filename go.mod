@@ -1,4 +1,4 @@
-module github.com/buildingwatsize/zlogwrap
+module ipanda.it.baac.or.th/golib/zlogwrap
 
 go 1.16
 
