@@ -40,6 +40,47 @@ func TestConfigDefault(t *testing.T) {
 	}
 }
 
+func TestSetField(t *testing.T) {
+	t.Run("TestSetField", func(t *testing.T) {
+		var buf bytes.Buffer
+		logger := configDefault(Config{Logger: log.Output(&buf)})
+		logger.
+			SetField("bool", true).
+			SetField("int", 12345).
+			SetField("int64", int64(12345)).
+			SetField("float64", float64(12345.01)).
+			SetField("[]byte", []byte(`{"json_key": "json_value"}`)).
+			SetField("[]int", []int{1, 2, 3, 4, 5}).
+			SetField("[]int64", []int64{1, 2, 3, 4, 5}).
+			SetField("[]float64", []float64{1.1, 2.2, 3.3, 4.4, 5.5}).
+			SetField("[]string", []string{"a", "b", "c"}).
+			SetField("", ""). // << expected skip this line
+			SetField("str", "string").
+			Debug()
+
+		require.Contains(t, buf.String(), "bool")
+		require.Contains(t, buf.String(), "true")
+		require.Contains(t, buf.String(), "int")
+		require.Contains(t, buf.String(), "12345")
+		require.Contains(t, buf.String(), "int64")
+		// require.Contains(t, buf.String(), "12345") // the same as `int`
+		require.Contains(t, buf.String(), "float64")
+		require.Contains(t, buf.String(), "12345.01")
+		require.Contains(t, buf.String(), "[]byte")
+		require.Contains(t, buf.String(), "{\"json_key\": \"json_value\"}")
+		require.Contains(t, buf.String(), "[]int")
+		require.Contains(t, buf.String(), "[1,2,3,4,5]")
+		require.Contains(t, buf.String(), "[]int64")
+		// require.Contains(t, buf.String(), "[1,2,3,4,5]") // the same as `int`
+		require.Contains(t, buf.String(), "[]float64")
+		require.Contains(t, buf.String(), "[1.1,2.2,3.3,4.4,5.5]")
+		require.Contains(t, buf.String(), "[]string")
+		require.Contains(t, buf.String(), "[\"a\",\"b\",\"c\"]")
+		require.Contains(t, buf.String(), "str")
+		require.Contains(t, buf.String(), "string")
+	})
+}
+
 func TestZLogWrapDefault(t *testing.T) {
 	tests := []testCaseDefault{
 		{

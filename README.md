@@ -10,6 +10,7 @@ zlogwrap is a logging library, which wrapping all common use in My "Go App".
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Signatures](#signatures)
+    - [zerologWrapper](#zerologwrapper)
   - [Examples](#examples)
   - [Config](#config)
   - [Default Config](#default-config)
@@ -26,6 +27,22 @@ zlogwrap is a logging library, which wrapping all common use in My "Go App".
 
 ```go
 func New(conf ...Config) zerologWrapper
+```
+
+### zerologWrapper
+
+Interface of functions
+
+```go
+type zerologWrapper interface {
+  SetField(key string, anything interface{}) zerologWrapper // Set field in logs
+  Debug(anything ...interface{})                            // level 0
+  Info(anything ...interface{})                             // level 1
+  Warn(anything ...interface{})                             // level 2
+  Error(anything ...interface{})                            // level 3
+  Fatal(anything ...interface{})                            // level 4
+  Panic(anything ...interface{})                            // level 5
+}
 ```
 
 ## Examples
@@ -54,8 +71,10 @@ logger := zlogwrap.New(zlogwrap.Config{
   ServiceName: "zlogwrap",
 })
 logger.Debug("A Debug Log")
+logger.SetField("key", "value").Debug("A Debug Log")
 
-// {"level":"debug","service":"zlogwrap","time":"2021-07-27T16:49:59+07:00","message":"A Debug Log"}
+// {"level":"debug","service":"zlogwrap","time":"2021-08-05T11:14:00+07:00","message":"A Debug Log"}
+// {"level":"debug","key":"value","service":"zlogwrap","time":"2021-08-05T11:14:00+07:00","message":"A Debug Log"}
 ```
 
 or customize the "Logger" and this library support middleware [RequestID](https://github.com/gofiber/docs/blob/master/api/middleware/requestid.md)
@@ -115,4 +134,4 @@ var ConfigDefault = Config{
 
 ## More Example Usage
 
-Please go to [example/main.go](./example/main.go) and [example/more_usage.go](./example/more_usage.go)
+Please go to [example/main.go](./example/main.go)

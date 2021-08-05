@@ -1,6 +1,7 @@
 package zlogwrap
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/rs/zerolog"
@@ -22,12 +23,42 @@ const (
 )
 
 type zerologWrapper interface {
-	Debug(anything ...interface{}) // level 0
-	Info(anything ...interface{})  // level 1
-	Warn(anything ...interface{})  // level 2
-	Error(anything ...interface{}) // level 3
-	Fatal(anything ...interface{}) // level 4
-	Panic(anything ...interface{}) // level 5
+	SetField(key string, anything interface{}) zerologWrapper // Set field in logs
+	Debug(anything ...interface{})                            // level 0
+	Info(anything ...interface{})                             // level 1
+	Warn(anything ...interface{})                             // level 2
+	Error(anything ...interface{})                            // level 3
+	Fatal(anything ...interface{})                            // level 4
+	Panic(anything ...interface{})                            // level 5
+}
+
+func (c Config) SetField(key string, anything interface{}) zerologWrapper {
+	if key == "" {
+		return &c
+	}
+	switch v := anything.(type) {
+	case bool:
+		c.Logger = c.Logger.With().Bool(key, v).Logger()
+	case int:
+		c.Logger = c.Logger.With().Int(key, v).Logger()
+	case int64:
+		c.Logger = c.Logger.With().Int64(key, v).Logger()
+	case float64:
+		c.Logger = c.Logger.With().Float64(key, v).Logger()
+	case []byte:
+		c.Logger = c.Logger.With().RawJSON(key, v).Logger()
+	case []int:
+		c.Logger = c.Logger.With().Ints(key, v).Logger()
+	case []int64:
+		c.Logger = c.Logger.With().Ints64(key, v).Logger()
+	case []float64:
+		c.Logger = c.Logger.With().Floats64(key, v).Logger()
+	case []string:
+		c.Logger = c.Logger.With().Strs(key, v).Logger()
+	default:
+		c.Logger = c.Logger.With().Str(key, fmt.Sprintf("%v", anything)).Logger()
+	}
+	return &c
 }
 
 func (c *Config) createLogTemplate(typeLog string) *zerolog.Event {
