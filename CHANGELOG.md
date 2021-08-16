@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.1
+
+- [Edited] - New module and package name for ipanda
+
 ## v0.2.0
 
 - [Added] `SetField` for customizing field in logs

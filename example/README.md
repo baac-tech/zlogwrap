@@ -3,7 +3,7 @@
 ## Step 1: Initialize
 
 ```bash
-  GOINSECURE="ipanda.it.baac.or.th" go mod tidy
+  go mod tidy
 ```
 
 ## Step 2: Go run `main.go`

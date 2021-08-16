@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/rs/zerolog"
-	"ipanda.it.baac.or.th/golib/zlogwrap"
+	"ipanda.baac.tech/golib/zlogwrap"
 )
 
 func main() {

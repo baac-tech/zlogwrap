@@ -8,6 +8,7 @@ zlogwrap is a logging library, which wrapping all common use in My "Go App".
 
 - [zlogwrap](#zlogwrap)
   - [Table of Contents](#table-of-contents)
+  - [Run this on first time only](#run-this-on-first-time-only)
   - [Installation](#installation)
   - [Signatures](#signatures)
     - [zerologWrapper](#zerologwrapper)
@@ -17,10 +18,16 @@ zlogwrap is a logging library, which wrapping all common use in My "Go App".
   - [Dependencies](#dependencies)
   - [More Example Usage](#more-example-usage)
 
+## Run this on first time only
+
+```bash
+  go env -w GOPRIVATE="ipanda.baac.tech"
+```
+
 ## Installation
 
 ```bash
-  GOINSECURE="ipanda.it.baac.or.th" GOPRIVATE="ipanda.it.baac.or.th" go get -u ipanda.it.baac.or.th/golib/zlogwrap
+  go get -u ipanda.baac.tech/golib/zlogwrap
 ```
 
 ## Signatures
@@ -51,7 +58,7 @@ Import the package
 
 ```go
 import (
-  "ipanda.it.baac.or.th/golib/zlogwrap"
+  "ipanda.baac.tech/golib/zlogwrap"
 )
 ```
 

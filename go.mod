@@ -1,4 +1,4 @@
-module ipanda.it.baac.or.th/golib/zlogwrap
+module ipanda.baac.tech/golib/zlogwrap
 
 go 1.16
 
