@@ -13,15 +13,6 @@ const ( // Todo: It's should be a config
 	URLTag           = "url"
 )
 
-const (
-	logDebugType = "debug"
-	logInfoType  = "info"
-	logWarnType  = "warn"
-	logErrorType = "error"
-	logFatalType = "fatal"
-	logPanicType = "panic"
-)
-
 type zerologWrapper interface {
 	SetField(key string, anything interface{}) zerologWrapper // Set field in logs
 	Debug(anything ...interface{})                            // level 0
@@ -30,6 +21,7 @@ type zerologWrapper interface {
 	Error(anything ...interface{})                            // level 3
 	Fatal(anything ...interface{})                            // level 4
 	Panic(anything ...interface{})                            // level 5
+	GetLogEvent(zerolog.Level) *zerolog.Event                 // With Caller (file:line)
 }
 
 func (c Config) SetField(key string, anything interface{}) zerologWrapper {
@@ -61,24 +53,10 @@ func (c Config) SetField(key string, anything interface{}) zerologWrapper {
 	return &c
 }
 
-func (c *Config) createLogTemplate(typeLog string) *zerolog.Event {
+func (c *Config) createLogTemplate(zLevel zerolog.Level) *zerolog.Event {
 	var logTemplate *zerolog.Event
-	switch typeLog {
-	case logDebugType:
-		logTemplate = c.Logger.Debug()
-	case logInfoType:
-		logTemplate = c.Logger.Info()
-	case logWarnType:
-		logTemplate = c.Logger.Warn()
-	case logErrorType:
-		logTemplate = c.Logger.Error()
-	case logFatalType:
-		logTemplate = c.Logger.Fatal()
-	case logPanicType:
-		logTemplate = c.Logger.Panic()
-	default:
-		logTemplate = c.Logger.Log()
-	}
+
+	logTemplate = c.Logger.WithLevel(zLevel)
 
 	if c.ServiceName != "" {
 		logTemplate = logTemplate.Str(ServiceNameTag, c.ServiceName)
@@ -104,7 +82,7 @@ func (c *Config) Debug(anything ...interface{}) {
 
 	logString := toString(anything...)
 
-	logTemplate := c.createLogTemplate(logDebugType)
+	logTemplate := c.createLogTemplate(zerolog.DebugLevel)
 	logTemplate.Msgf("%v", logString)
 }
 
@@ -115,7 +93,7 @@ func (c *Config) Info(anything ...interface{}) {
 
 	logString := toString(anything...)
 
-	logTemplate := c.createLogTemplate(logInfoType)
+	logTemplate := c.createLogTemplate(zerolog.InfoLevel)
 	logTemplate.Msgf("%v", logString)
 }
 
@@ -126,7 +104,7 @@ func (c *Config) Warn(anything ...interface{}) {
 
 	logString := toString(anything...)
 
-	logTemplate := c.createLogTemplate(logWarnType)
+	logTemplate := c.createLogTemplate(zerolog.WarnLevel)
 	logTemplate.Msgf("%v", logString)
 }
 
@@ -137,7 +115,7 @@ func (c *Config) Error(anything ...interface{}) {
 
 	logString := toString(anything...)
 
-	logTemplate := c.createLogTemplate(logErrorType)
+	logTemplate := c.createLogTemplate(zerolog.ErrorLevel)
 	logTemplate.Msgf("%v", logString)
 }
 
@@ -148,7 +126,7 @@ func (c *Config) Fatal(anything ...interface{}) {
 
 	logString := toString(anything...)
 
-	logTemplate := c.createLogTemplate(logFatalType)
+	logTemplate := c.createLogTemplate(zerolog.FatalLevel)
 	logTemplate.Msgf("%v", logString)
 }
 
@@ -159,6 +137,10 @@ func (c *Config) Panic(anything ...interface{}) {
 
 	logString := toString(anything...)
 
-	logTemplate := c.createLogTemplate(logPanicType)
+	logTemplate := c.createLogTemplate(zerolog.PanicLevel)
 	logTemplate.Msgf("%v", logString)
+}
+
+func (c *Config) GetLogEvent(level zerolog.Level) *zerolog.Event {
+	return c.Logger.WithLevel(level)
 }

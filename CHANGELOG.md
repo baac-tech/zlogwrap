@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.2
+
+- [Edited] Refactor Code in Log Level
+- [Added] "Caller", zerolog feature by use `GetLogEvent` function, please see more example
+
 ## v0.2.1
 
 - [Edited] - New module and package name for ipanda

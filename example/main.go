@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"ipanda.baac.tech/golib/zlogwrap"
 )
 
@@ -115,4 +116,11 @@ func seeMoreUsage() {
 
 	fmt.Println()
 
+	logger5 := zlogwrap.New(zlogwrap.Config{
+		ServiceName: "Customize Fields with Caller",
+		Logger:      log.With().Caller().Logger(),
+	})
+	logger5.SetField("title", "WithCaller").GetLogEvent(zerolog.DebugLevel).Msg("a message")
+
+	fmt.Println()
 }

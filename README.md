@@ -49,6 +49,7 @@ type zerologWrapper interface {
   Error(anything ...interface{})                            // level 3
   Fatal(anything ...interface{})                            // level 4
   Panic(anything ...interface{})                            // level 5
+  GetLogEvent(zerolog.Level) *zerolog.Event                 // With Caller (file:line)
 }
 ```
 
