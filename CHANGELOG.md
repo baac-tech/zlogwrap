@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.3
+
+- [Edited] Supported `Interface` type of values
+- [Added] log with `Fiber.Map` example
+
 ## v0.2.2
 
 - [Edited] Refactor Code in Log Level

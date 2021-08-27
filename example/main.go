@@ -27,6 +27,14 @@ func main() {
 	myJSON := []byte(`{"num":6.13,"strs":["a","b"]}`)
 	logger1.SetField("myKey", myJSON).Debug()
 
+	// SetField x Fiber.Map (v0.2.3+)
+	logger1.SetField("fiberMap", fiber.Map{
+		"request_body": fiber.Map{
+			"name":    "Chinnawat",
+			"surname": "Chimdee",
+		},
+	}).Debug("")
+
 	// a possibilities use please go to func `seeMoreUsage()`
 	seeMoreUsage()
 

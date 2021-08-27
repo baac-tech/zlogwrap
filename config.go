@@ -1,7 +1,6 @@
 package zlogwrap
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/rs/zerolog"
@@ -48,7 +47,7 @@ func (c Config) SetField(key string, anything interface{}) zerologWrapper {
 	case []string:
 		c.Logger = c.Logger.With().Strs(key, v).Logger()
 	default:
-		c.Logger = c.Logger.With().Str(key, fmt.Sprintf("%v", anything)).Logger()
+		c.Logger = c.Logger.With().Interface(key, v).Logger()
 	}
 	return &c
 }
