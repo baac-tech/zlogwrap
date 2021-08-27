@@ -44,9 +44,12 @@ func main() {
 
 	app := fiber.New(fiber.Config{DisableStartupMessage: true})
 	app.Use(requestid.New(requestid.Config{
-		// zlogwrap using custom header 'Transaction-Id' instead of 'X-Request-Id'
-		// and TransactionIDTag also available to use (it's constant)
-		Header: zlogwrap.TransactionIDTag,
+		// zlogwrap using custom header and context key, 'Transaction-Id' instead of 'X-Request-Id'
+		// Note: `zlogwrap.RequestIDHeaderKeyTag` and `zlogwrap.RequestIDContextKeyTag`
+		//       are also available to use (they're constant)
+		//
+		// Header:     zlogwrap.RequestIDHeaderKeyTag,  // Can use this
+		ContextKey: zlogwrap.RequestIDContextKeyTag, // or use ContextKey (also available too)
 	}))
 
 	app.Get("/", Handler) // GET http://localhost:8000/

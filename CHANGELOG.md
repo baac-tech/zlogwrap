@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.4
+
+- [Added] Supported RequestID's `ContextKey` alongside with RequestID's `Header`
+- [Added] Constant `RequestIDContextKeyTag` can be use with RequestID's `ContextKey`
+
 ## v0.2.3
 
 - [Edited] Supported `Interface` type of values

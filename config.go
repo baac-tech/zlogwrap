@@ -7,9 +7,10 @@ import (
 )
 
 const ( // Todo: It's should be a config
-	ServiceNameTag   = "service"
-	TransactionIDTag = "transaction-id"
-	URLTag           = "url"
+	ServiceNameTag         = "service"
+	RequestIDHeaderKeyTag  = "transaction-id"
+	RequestIDContextKeyTag = "transaction-id"
+	URLTag                 = "url"
 )
 
 type zerologWrapper interface {
@@ -62,8 +63,14 @@ func (c *Config) createLogTemplate(zLevel zerolog.Level) *zerolog.Event {
 	}
 
 	if c.Context != nil {
-		if txID := string(c.Context.Response().Header.Peek(TransactionIDTag)); txID != "" {
-			logTemplate = logTemplate.Str(strings.ReplaceAll(TransactionIDTag, "-", "_"), txID)
+		// RequestID: Header style
+		if reqID := string(c.Context.Response().Header.Peek(RequestIDHeaderKeyTag)); reqID != "" {
+			logTemplate = logTemplate.Str(strings.ReplaceAll(RequestIDHeaderKeyTag, "-", "_"), reqID)
+		}
+
+		// RequestID: ContextKey style
+		if reqID := c.Context.Locals(RequestIDContextKeyTag); reqID != nil {
+			logTemplate = logTemplate.Str(strings.ReplaceAll(RequestIDContextKeyTag, "-", "_"), reqID.(string))
 		}
 
 		if url := c.Context.OriginalURL(); url != "" {
