@@ -13,8 +13,8 @@ const ( // Todo: It's should be a config
 	URLTag                 = "url"
 )
 
-type zerologWrapper interface {
-	SetField(key string, anything interface{}) zerologWrapper // Set field in logs
+type ZerologWrapper interface {
+	SetField(key string, anything interface{}) ZerologWrapper // Set field in logs
 	Debug(anything ...interface{})                            // level 0
 	Info(anything ...interface{})                             // level 1
 	Warn(anything ...interface{})                             // level 2
@@ -24,7 +24,7 @@ type zerologWrapper interface {
 	GetLogEvent(zerolog.Level) *zerolog.Event                 // With Caller (file:line)
 }
 
-func (c Config) SetField(key string, anything interface{}) zerologWrapper {
+func (c Config) SetField(key string, anything interface{}) ZerologWrapper {
 	if key == "" {
 		return &c
 	}

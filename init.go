@@ -8,7 +8,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func New(conf ...Config) zerologWrapper {
+func New(conf ...Config) ZerologWrapper {
 	// set default config
 	cfg := configDefault(conf...)
 
@@ -37,7 +37,7 @@ var ConfigDefault = Config{
 	Logger:      log.Logger,
 }
 
-func configDefault(config ...Config) zerologWrapper {
+func configDefault(config ...Config) ZerologWrapper {
 	// Return default config if nothing provided
 	if len(config) < 1 {
 		return &ConfigDefault
