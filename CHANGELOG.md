@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.0
+
+- [Edited] Updated dependencies
+- [Edited] Renamed module name for github public repo
+
 ## v0.2.4
 
 - [Added] Supported RequestID's `ContextKey` alongside with RequestID's `Header`
@@ -22,11 +27,3 @@
 ## v0.2.0
 
 - [Added] `SetField` for customizing field in logs
-
-## v0.1.1
-
-- [Initial] ipanda local repository [ipanda.it.baac.or.th/golib/zlogwrap](ipanda.it.baac.or.th/golib/zlogwrap)
-
-## v0.1.0
-
-- [Initial] zlogwrap a logging wrapped for common use

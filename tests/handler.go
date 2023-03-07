@@ -3,8 +3,8 @@ package tests
 import (
 	"encoding/json"
 
+	"github.com/baac-tech/zlogwrap"
 	"github.com/gofiber/fiber/v2"
-	"ipanda.baac.tech/golib/zlogwrap"
 )
 
 func HandlerContext(c *fiber.Ctx) error {

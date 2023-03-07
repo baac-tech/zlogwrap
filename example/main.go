@@ -5,11 +5,11 @@ import (
 	"os"
 	"time"
 
+	"github.com/baac-tech/zlogwrap"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
-	"ipanda.baac.tech/golib/zlogwrap"
 )
 
 func main() {

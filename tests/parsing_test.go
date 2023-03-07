@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/baac-tech/zlogwrap"
 	"github.com/gofiber/fiber/v2"
 	"github.com/stretchr/testify/assert"
-	"ipanda.baac.tech/golib/zlogwrap"
 )
 
 func TestParsing(t *testing.T) {
